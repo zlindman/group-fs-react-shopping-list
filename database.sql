@@ -4,12 +4,13 @@
 CREATE TABLE "cart" (
 "id" SERIAL PRIMARY KEY,
 "item" VARCHAR (80) NOT NULL,
-"quantity" INTEGER
+"quantity" INTEGER,
+"unit" VARCHAR (20)
 );
 
-INSERT INTO "cart" ("item", "quantity") VALUES
-('Apples', '5'),
-('Oatmilk', '2'),
-('Avocados', '4'),
-('Cereal', '1'),
-('Bread', '2')
+INSERT INTO "cart" ("item", "quantity", "unit") VALUES
+('Apples', '5', 'lbs'),
+('Oatmilk', '2', 'gal'),
+('Avocados', '4', 'lbs'),
+('Cereal', '1', 'box'),
+('Bread', '2', 'loaf')

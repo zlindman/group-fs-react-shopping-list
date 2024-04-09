@@ -5,7 +5,7 @@ const pool = require('../modules/pool.js');
 //GET - get database list
  router.get('/', (req, res) => {
      console.log('testing get');
-     let queryText = `SELECT * FROM cart;`;
+     let queryText = `SELECT * FROM cart ORDER BY id;`;
      pool.query(queryText)
      .then((result) => {
          res.send(result.rows);
@@ -18,8 +18,8 @@ const pool = require('../modules/pool.js');
  //POST
  router.post('/', (req,res) => {
     let newItem = req.body;
-    let queryText = `INSERT INTO "cart" ("item", "quantity") VALUES ($1, $2)`;
-    pool.query(queryText, [newItem.item, newItem.quantity])
+    let queryText = `INSERT INTO "cart" ("item", "quantity", "unit") VALUES ($1, $2, $3)`;
+    pool.query(queryText, [newItem.item, newItem.quantity, newItem.unit])
         .then(() => {
             res.sendStatus(201);
         })
@@ -32,13 +32,12 @@ const pool = require('../modules/pool.js');
  //PUT
 
  router.put('/:id', (req, res) => {
-    console.log(req.body);
     console.log(req.params);
     let queryText = `
-    UPDATE "cart" set "item" = $1
+    UPDATE "cart" set "purchased" = $1
     WHERE "id" = $2;
     `;
-    pool.query(queryText, [req.body.item, req.params.id])
+    pool.query(queryText, [true, req.params.id])
         .then(() => {
             res.sendStatus(200);
         }).catch((error) =>{
